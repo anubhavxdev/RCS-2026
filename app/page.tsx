@@ -82,14 +82,6 @@ export default function Home() {
                         </p>
                     </div>
                 </div>
-
-                <video
-                    className="w-full h-screen absolute top-0 -z-10 object-cover"
-                    src="https://d2uvmg2nv1rjub.cloudfront.net/rcs-hero-back.mp4"
-                    autoPlay
-                    loop
-                    muted
-                />
             </section>
 
             <PerksSection />

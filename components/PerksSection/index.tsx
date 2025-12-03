@@ -12,7 +12,7 @@ function PerksSection() {
                 <div className="">
                     <h2 className="text-3xl font-medium">CTF Perks</h2>
                     <p>
-                    Participant to stand a chance to win various rewards such as variuos rewards, and certificates, enhancing their reputation and opening up career opportunities.
+                    Participant stand a chance to win various rewards , and certificates, enhancing their reputation and opening up career opportunities.
                     </p>
                 </div>
             </div>

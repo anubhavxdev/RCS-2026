@@ -61,6 +61,16 @@ export default function RootLayout({ children }: RootLayoutProps) {
     return (
         <html lang="en">
             <body className={`text-text bg-background`}>
+                {/* Fixed video background for entire website */}
+                <video
+                    className="fixed top-0 left-0 w-full h-full object-cover -z-10"
+                    src="/back.mp4"
+                    autoPlay
+                    loop
+                    
+                    playsInline
+                />
+                <div className="fixed top-0 left-0 w-full h-full bg-black/50 -z-10" />
                 <Navbar />
                 {children}
                 <FooterSection />
