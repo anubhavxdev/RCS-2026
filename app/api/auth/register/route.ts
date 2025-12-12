@@ -7,7 +7,11 @@ import bcrypt from 'bcryptjs'
 export async function POST(request: Request) {
     try {
         await dbConnect()
-        const body = await request.json()
+        const body = await request.json() as { name?: string; email?: string; password?: string; contact_no?: string; where_you_reside?: string; team_name?: string; team_members?: any[] }
+
+        if (!body.email || !body.password) {
+            return NextResponse.json({ error: 'Email and password are required' }, { status: 400 })
+        }
 
         // 1. Check if user already exists in User collection
         const existingUser = await User.findOne({ email: body.email })
@@ -42,15 +46,12 @@ export async function POST(request: Request) {
             role: 'attendee'
         })
 
-        const userData = user.toObject()
-        userData.id = userData._id.toString()
-        delete userData._id
-        delete userData.password
+        // Mongoose's create may return a document or an array of documents depending on input
+        const created = Array.isArray(user) ? user[0] : user
+        const { _id, password: _p, ...rest } = (created as any).toObject() as any
+        const userData = { id: _id.toString(), ...rest }
 
-        return NextResponse.json({
-            success: true,
-            user: userData
-        }, { status: 201 })
+        return NextResponse.json({ success: true, user: userData }, { status: 201 })
 
     } catch (error: any) {
         return NextResponse.json({ error: error.message }, { status: 500 })

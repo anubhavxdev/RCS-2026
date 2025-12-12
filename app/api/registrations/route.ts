@@ -29,10 +29,8 @@ export async function GET(request: Request) {
         const users = await User.find({ role: 'attendee' }).sort({ registeredAt: -1 })
 
         const sanitizedUsers = users.map(user => {
-            const u = user.toObject()
-            u.id = u?._id.toString()
-            delete u._id
-            return u
+            const { _id, password, ...rest } = (user.toObject() as any) as any
+            return { id: _id.toString(), ...rest }
         })
 
         return NextResponse.json(sanitizedUsers, { status: 200 })
